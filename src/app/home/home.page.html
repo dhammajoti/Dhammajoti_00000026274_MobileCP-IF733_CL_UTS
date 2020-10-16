@@ -1,20 +1,62 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-button >
+        <ion-menu-button menu="sideMenu"></ion-menu-button>
+      </ion-button>
+    </ion-buttons>
     <ion-title>
-      Blank
+      Home
     </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="changeGrid()">
+        <ion-icon name="grid-outline" *ngIf="gridView"></ion-icon>
+        <ion-icon name="list-outline" *ngIf="!gridView"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<!-- LIST VIEW -->
+<ion-content *ngIf="gridView" >
+  <ion-list>
+    <div *ngFor="let product of loadedproducts" [routerLink]="['./', product.id]">
+      <ion-item *ngIf="product.stock != 0" >
+        <ion-thumbnail>
+          <img [src]="product.photoUrl[0]" />
+        </ion-thumbnail>
+        <ion-grid>       
+          <ion-row>
+            <ion-label>{{product.name}}</ion-label>
+          </ion-row>
+          <ion-row>
+            <ion-label>{{product.price|currency:"Rp. ":"symbol"}}</ion-label>
+          </ion-row>
+          <ion-row>
+            <ion-label>Tersedia : {{product.stock}}</ion-label>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>
+<!-- GRID VIEW -->
+<ion-content *ngIf="!gridView">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-sm="4"*ngFor="let product of loadedproducts" [routerLink]="['./', product.id]" class="ion-text-center"  >
+        <ion-card *ngIf="product.stock != 0">
+          <ion-row class="ion-justify-content-center">
+             <ion-col size="6">
+              <ion-img [src]="product.photoUrl[0]"></ion-img>
+            </ion-col>
+          </ion-row>
+          <ion-card-content >
+            <ion-label>{{product.name}}</ion-label><br>
+            <ion-label>{{product.price|currency:"Rp. ":"symbol"}}</ion-label><br>
+            <ion-label>Tersedia : {{product.stock}}</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

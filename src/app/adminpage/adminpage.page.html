@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-button >
+        <ion-menu-button menu="sideMenu"></ion-menu-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Admin</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button [routerLink]="['/adminpage/newproduct']" >
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>   
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div *ngFor="let product of loadedproducts">
+      <ion-item-sliding #slidingItem>
+      <ion-item-options side="start" (ionSwipe)="editProduct(product.id)">
+        <ion-item-option  color="secondary" >
+          <ion-icon name="create-outline" style="font-size: 20px; padding-right: 10px; padding-left: 10px;" ></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+      <ion-item>
+        <ion-thumbnail>
+          <img [src]="product.photoUrl[0]" />
+        </ion-thumbnail>
+        <ion-grid>
+          <ion-row>
+            <ion-label>{{product.name}}</ion-label>
+          </ion-row>
+          <ion-row>
+            <ion-label>{{product.price|currency:"Rp. ":"symbol"}}</ion-label>
+          </ion-row>
+          <ion-row>
+            <ion-label>Tersedia : {{product.stock}}</ion-label>
+          </ion-row>
+        </ion-grid>
+      </ion-item>  
+      <ion-item-options side="end" (ionSwipe)="presentAlert(product.id)">
+        <ion-item-option  color="danger" >
+          <ion-icon name="trash" style="font-size: 20px; padding-right: 10px; padding-left: 10px;" ></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    </div>
+  </ion-list>  
+  
+</ion-content>
+<ion-footer>*slide left for delete, slide right for edit</ion-footer>
