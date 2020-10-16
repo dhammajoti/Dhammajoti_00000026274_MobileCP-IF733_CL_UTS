@@ -1,0 +1,119 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button>
+        <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Edit Product</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #form="ngForm"  (ngSubmit)="onSubmit(form)">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Image Url (Separate with coma)</ion-label>
+        <ion-textarea ngModel #photoUrlCtrl="ngModel" [(ngModel)]="loadedProduct.photoUrl" value="" name="photoUrl" placeholder="URL" required></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Jenis Produk</ion-label>
+        <ion-select ngModel #typeCtrl="ngModel" [(ngModel)]="loadedProduct.jenis" [disabled]="true" name="jenis" placeholder="Select One" required [interfaceOptions]="customPopoverOptions" interface="popover" mode="ios">
+          <ion-select-option value="CPU">CPU</ion-select-option>
+          <ion-select-option value="RAM">RAM</ion-select-option>
+          <ion-select-option value="Motherboard">Motherboard</ion-select-option>
+          <ion-select-option value="GPU">GPU</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Nama Produk</ion-label>
+        <ion-input type="text" placeholder="Nama Produk" [(ngModel)]="loadedProduct.name" #nameCtrl="ngModel" ngModel name="name" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Model Produk</ion-label>
+        <ion-input type="text" placeholder="Model Produk" [(ngModel)]="loadedProduct.model" #modelCtrl="ngModel" ngModel name="model" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Harga Produk</ion-label>
+        <ion-input type="number" placeholder="Harga" [(ngModel)]="loadedProduct.price" #priceCtrl="ngModel" ngModel name="price" required>Rp. </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Stok</ion-label>
+        <ion-input type="number" placeholder="Stok" [(ngModel)]="loadedProduct.stock" #stockCtrl="ngModel" ngModel name="stock" required></ion-input>
+      </ion-item>
+      
+      <ion-row *ngIf="loadedProduct.jenis == 'CPU'">
+        <ion-col size="12">
+          <ion-item>
+            <ion-label><strong>Detail Produk :</strong></ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+          <ion-label position="floating">Base Clock(Ghz)</ion-label>
+          <ion-input type="text" placeholder="base Clock" [(ngModel)]="loadedProduct.baseClock" #baseClockCtrl="ngModel" ngModel name="baseClock" required></ion-input>
+        </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Boost Clock(Ghz)</ion-label>
+            <ion-input type="text" placeholder="Boost Clock" [(ngModel)]="loadedProduct.boostClock" #boostClockCtrl="ngModel" ngModel name="boostClock" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Core</ion-label>
+            <ion-input type="number" placeholder="Core" [(ngModel)]="loadedProduct.jumlahcore" #jumlahcoreCtrl="ngModel" ngModel name="jumlahcore" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Thread</ion-label>
+            <ion-input type="number" placeholder="Thread" [(ngModel)]="loadedProduct.thread" #threadCtrl="ngModel" ngModel name="thread" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="loadedProduct.jenis == 'RAM'">
+        <ion-col size="12">
+          <ion-item>
+            <ion-label><strong>Detail Produk :</strong></ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Speed</ion-label>
+            <ion-input type="text" placeholder="Speed" [(ngModel)]="loadedProduct.speed" #speedCtrl="ngModel" ngModel name="speed" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Size</ion-label>
+            <ion-input type="text" placeholder="ukuran" [(ngModel)]="loadedProduct.ukuran" #ukuranCtrl="ngModel" ngModel name="ukuran" required></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="loadedProduct.jenis == 'Motherboard'">
+        <ion-col size="12">
+          <ion-item>
+            <ion-label><strong>Detail Produk :</strong></ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6" >
+          <ion-item>
+            <ion-label position="floating">Chipset</ion-label>
+            <ion-input type="text" placeholder="Speed" [(ngModel)]="loadedProduct.chipset" #chipsetCtrl="ngModel" ngModel name="chipset" required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Support Processor</ion-label>
+            <ion-input type="text" placeholder="Size" [(ngModel)]="loadedProduct.fitprosesor" #fitprosesorCtrl="ngModel" ngModel name="fitprosesor" required></ion-input>
+          </ion-item>
+        </ion-col>    
+      </ion-row>
+    </ion-list>
+    <ion-button type="submit" color="primary" expand="block" [disabled]="form.invalid">
+      Submit
+    </ion-button>
+  </form>
+</ion-content>
